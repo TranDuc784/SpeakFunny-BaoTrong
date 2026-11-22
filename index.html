@@ -1,0 +1,2034 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#FF6B6B" />
+  <title>FunSpeak Kids – Bé nói tiếng Anh như người bản xứ</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF6B6B;
+      --secondary: #4ECDC4;
+      --accent: #FFE66D;
+      --purple: #A78BFA;
+      --pink: #F472B6;
+      --blue: #60A5FA;
+      --green: #34D399;
+      --bg: #FFF9F0;
+      --card: #FFFFFF;
+      --text: #2D3436;
+      --shadow: 0 8px 25px rgba(0,0,0,0.08);
+      --radius: 24px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.4;
+    }
+
+    .app {
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--bg);
+      position: relative;
+      box-shadow: 0 0 40px rgba(0,0,0,0.05);
+    }
+
+    @media (min-width: 768px) {
+      .app {
+        max-width: 900px;
+        border-radius: 32px;
+        margin: 20px auto;
+        min-height: calc(100vh - 40px);
+        overflow: hidden;
+      }
+      body {
+        background: linear-gradient(135deg, #FFE8D6 0%, #E0F7FA 50%, #F3E5F5 100%);
+      }
+    }
+
+    .header {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      padding: 16px 20px 20px;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-radius: 0 0 28px 28px;
+      box-shadow: 0 6px 20px rgba(255,107,107,0.3);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      font-size: 1.35rem;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .stars-badge {
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      border: 3px solid white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      cursor: pointer;
+    }
+
+    .greeting {
+      font-size: 0.9rem;
+      opacity: 0.95;
+    }
+    .greeting strong {
+      display: block;
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .greeting small {
+      font-size: 0.72rem;
+      opacity: 0.85;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 8px 14px;
+      box-shadow: 0 -6px 25px rgba(0,0,0,0.08);
+      z-index: 200;
+      border-radius: 24px 24px 0 0;
+    }
+
+    @media (min-width: 768px) {
+      .bottom-nav {
+        max-width: 900px;
+        border-radius: 0 0 32px 32px;
+      }
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 16px;
+      transition: all 0.2s;
+      color: #94A3B8;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+      background: #FFF0F0;
+    }
+
+    .nav-item span.icon {
+      font-size: 1.5rem;
+    }
+
+    .screen {
+      display: none;
+      padding: 20px 16px 100px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #A78BFA, #60A5FA);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      color: white;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card::after {
+      content: '🌟';
+      position: absolute;
+      right: -10px;
+      bottom: -20px;
+      font-size: 7rem;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .hero-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      opacity: 0.95;
+      margin-bottom: 16px;
+    }
+
+    .progress-bar-bg {
+      background: rgba(255,255,255,0.3);
+      height: 12px;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 50px;
+      width: 0%;
+      transition: width 0.6s ease;
+    }
+
+    .progress-text {
+      font-size: 0.8rem;
+      margin-top: 8px;
+      opacity: 0.95;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    @media (min-width: 768px) {
+      .week-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .week-card {
+      background: white;
+      border-radius: 20px;
+      padding: 18px 14px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: all 0.25s;
+      border: 3px solid transparent;
+      position: relative;
+    }
+
+    .week-card:not(.locked):hover, .week-card:not(.locked):active {
+      transform: translateY(-4px);
+      border-color: var(--secondary);
+    }
+
+    .week-card.locked {
+      opacity: 0.6;
+      filter: grayscale(0.35);
+      cursor: not-allowed;
+    }
+
+    .week-card .emoji {
+      font-size: 2.4rem;
+      margin-bottom: 8px;
+    }
+
+    .week-card .title {
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .week-card .sub {
+      font-size: 0.75rem;
+      color: #64748B;
+      margin-top: 2px;
+    }
+
+    .week-card .stars {
+      margin-top: 8px;
+      font-size: 0.85rem;
+    }
+
+    .badge-new {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--primary);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 50px;
+    }
+
+    .badge-done {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--green);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 50px;
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 20px;
+      padding: 18px 14px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: scale(1.03);
+    }
+
+    .feature-card .icon {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+
+    .feature-card .label {
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .lesson-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .back-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: white;
+      border: none;
+      box-shadow: var(--shadow);
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .lesson-title {
+      font-size: 1.3rem;
+      font-weight: 900;
+    }
+
+    .day-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      scrollbar-width: none;
+    }
+
+    .day-tabs::-webkit-scrollbar { display: none; }
+
+    .day-tab {
+      flex-shrink: 0;
+      padding: 10px 18px;
+      border-radius: 50px;
+      background: white;
+      border: 2px solid #E2E8F0;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .day-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .day-tab.completed::after {
+      content: ' ✓';
+      color: #10B981;
+    }
+
+    .day-tab.active.completed::after {
+      color: #FEF08A;
+    }
+
+    .video-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      background: #1a1a1a;
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .video-play-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .play-circle {
+      width: 72px;
+      height: 72px;
+      background: rgba(255,107,107,0.95);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+
+    .play-circle:active {
+      transform: scale(0.92);
+    }
+
+    .video-info {
+      padding: 16px;
+    }
+
+    .video-info h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .video-info p {
+      font-size: 0.85rem;
+      color: #64748B;
+    }
+
+    .action-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .btn {
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: none;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      color: white;
+      box-shadow: 0 6px 18px rgba(255,107,107,0.35);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--text);
+      border: 2px solid #E2E8F0;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .practice-box {
+      background: linear-gradient(135deg, #E0F2FE, #F0FDF4);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .practice-box h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .phrase-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .phrase-item {
+      background: white;
+      padding: 12px 16px;
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .phrase-item.selected {
+      border-color: var(--primary);
+      background: #FFF8F8;
+    }
+
+    .phrase-text {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .speak-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--secondary);
+      border: none;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feedback-box {
+      margin-top: 12px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-box.good {
+      background: #D1FAE5;
+      color: #065F46;
+      border: 2px solid #10B981;
+    }
+
+    .feedback-box.ok {
+      background: #FEF3C7;
+      color: #92400E;
+      border: 2px solid #F59E0B;
+    }
+
+    .feedback-box.bad {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 2px solid #EF4444;
+    }
+
+    .record-section {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .record-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin: 12px 0;
+    }
+
+    .record-btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255,107,107,0.4);
+      transition: all 0.2s;
+    }
+
+    .sub-record-btn {
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 2px solid #E2E8F0;
+      background: #F8FAFC;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .sub-record-btn.recording {
+      border-color: #EF4444;
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+
+    .record-btn.recording, .record-btn.listening {
+      animation: pulse 1s infinite;
+      background: #EF4444;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    .record-status {
+      font-size: 0.9rem;
+      color: #64748B;
+      min-height: 24px;
+    }
+
+    .transcript-box {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: #F1F5F9;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      min-height: 48px;
+      display: none;
+    }
+
+    .transcript-box.show {
+      display: block;
+    }
+
+    .score-circle {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #34D399, #10B981);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin: 12px auto;
+      box-shadow: 0 6px 18px rgba(16,185,129,0.35);
+    }
+
+    .quiz-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .quiz-q {
+      font-weight: 800;
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .quiz-opt {
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #F8FAFC;
+      border: 2px solid #E2E8F0;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .quiz-opt:hover {
+      border-color: var(--secondary);
+    }
+
+    .quiz-opt.correct {
+      background: #D1FAE5;
+      border-color: #10B981;
+    }
+
+    .quiz-opt.wrong {
+      background: #FEE2E2;
+      border-color: #EF4444;
+    }
+
+    .story-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .story-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .story-cover {
+      height: 140px;
+      background: linear-gradient(135deg, #FDE68A, #FCA5A5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+
+    .story-body {
+      padding: 16px;
+    }
+
+    .story-body h3 {
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .story-body p {
+      font-size: 0.85rem;
+      color: #64748B;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 18px;
+      padding: 16px 10px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-value {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: #64748B;
+      margin-top: 2px;
+    }
+
+    .badge-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .badge-item {
+      background: white;
+      border-radius: 18px;
+      padding: 16px 8px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .badge-item.locked {
+      opacity: 0.4;
+      filter: grayscale(1);
+    }
+
+    .badge-emoji {
+      font-size: 2.2rem;
+      margin-bottom: 6px;
+    }
+
+    .badge-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 28px;
+      padding: 28px 24px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      animation: popIn 0.3s ease;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-emoji {
+      font-size: 4rem;
+      margin-bottom: 12px;
+    }
+
+    .modal h2 {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .modal p {
+      color: #64748B;
+      margin-bottom: 20px;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    @media (min-width: 768px) {
+      .screen {
+        padding: 28px 32px 110px;
+      }
+      .header {
+        padding: 20px 32px 24px;
+      }
+      .week-grid {
+        gap: 18px;
+      }
+      .feature-row {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1E293B;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      z-index: 400;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-top">
+        <div class="logo">
+          <div class="logo-icon">🦊</div>
+          <span>FunSpeak Kids</span>
+        </div>
+        <div class="stars-badge">
+          <span>⭐</span>
+          <span id="totalStars">12</span>
+        </div>
+      </div>
+      <div class="user-info">
+        <div class="avatar" onclick="editChildName()" title="Đổi tên bé">👧</div>
+        <div class="greeting">
+          Xin chào,
+          <strong id="childName" onclick="editChildName()">Bé Yêu</strong>
+          <small>Nhấn vào tên để chỉnh sửa</small>
+        </div>
+      </div>
+    </header>
+
+    <div id="screen-home" class="screen active">
+      <div class="hero-card">
+        <div class="hero-title">Hôm nay học gì nào? 🚀</div>
+        <div class="hero-sub" id="heroSub">Hoàn thành bài học để tích lũy sao và mở khóa huy hiệu</div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="mainProgress"></div>
+        </div>
+        <div class="progress-text">
+          <span>Tiến độ tổng: <strong id="progressPercent">0%</strong></span>
+          <span id="completedCountText">0/12 bài</span>
+        </div>
+      </div>
+
+      <div class="section-title">📚 Lộ trình học</div>
+      <div class="week-grid">
+        <div class="week-card" id="weekCard1" onclick="openWeek(1)">
+          <div class="badge-new" id="weekBadge1">MỚI</div>
+          <div class="emoji">🌈</div>
+          <div class="title">Tuần 1</div>
+          <div class="sub">Chào hỏi & Màu sắc</div>
+          <div class="stars" id="weekStars1">☆☆☆☆☆☆</div>
+        </div>
+        <div class="week-card" id="weekCard2" onclick="openWeek(2)">
+          <div class="emoji">👨‍👩‍👧‍👦</div>
+          <div class="title">Tuần 2</div>
+          <div class="sub">Gia đình & Động vật</div>
+          <div class="stars" id="weekStars2">☆☆☆☆☆☆</div>
+        </div>
+        <div class="week-card locked" id="weekCard3" onclick="openWeek(3)">
+          <div class="emoji">🏫</div>
+          <div class="title">Tuần 3</div>
+          <div class="sub">Trường học</div>
+          <div class="stars">🔒 Sắp ra mắt</div>
+        </div>
+        <div class="week-card locked" id="weekCard4" onclick="openWeek(4)">
+          <div class="emoji">🌍</div>
+          <div class="title">Tuần 4</div>
+          <div class="sub">Cảm xúc & Hành động</div>
+          <div class="stars">🔒 Sắp ra mắt</div>
+        </div>
+      </div>
+
+      <div class="section-title">✨ Hoạt động vui</div>
+      <div class="feature-row">
+        <div class="feature-card" onclick="showScreen('stories')">
+          <div class="icon">📖</div>
+          <div class="label">Câu chuyện</div>
+        </div>
+        <div class="feature-card" onclick="showScreen('speak')">
+          <div class="icon">🎤</div>
+          <div class="label">Luyện nói</div>
+        </div>
+        <div class="feature-card" onclick="showScreen('quiz')">
+          <div class="icon">🧠</div>
+          <div class="label">Kiểm tra</div>
+        </div>
+        <div class="feature-card" onclick="showScreen('rewards')">
+          <div class="icon">🏆</div>
+          <div class="label">Phần thưởng</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-week1" class="screen">
+      <div class="lesson-header">
+        <button class="back-btn" onclick="showScreen('home')">←</button>
+        <div class="lesson-title">Tuần 1: Chào hỏi & Màu sắc</div>
+      </div>
+
+      <div class="day-tabs" id="dayTabs1">
+        <div class="day-tab active" data-day="1">Thứ 2</div>
+        <div class="day-tab" data-day="2">Thứ 3</div>
+        <div class="day-tab" data-day="3">Thứ 4</div>
+        <div class="day-tab" data-day="4">Thứ 5</div>
+        <div class="day-tab" data-day="5">Thứ 6</div>
+        <div class="day-tab" data-day="6">Thứ 7</div>
+      </div>
+
+      <div id="dayContent1"></div>
+    </div>
+
+    <div id="screen-week2" class="screen">
+      <div class="lesson-header">
+        <button class="back-btn" onclick="showScreen('home')">←</button>
+        <div class="lesson-title">Tuần 2: Gia đình & Động vật</div>
+      </div>
+
+      <div class="day-tabs" id="dayTabs2">
+        <div class="day-tab active" data-day="1">Thứ 2</div>
+        <div class="day-tab" data-day="2">Thứ 3</div>
+        <div class="day-tab" data-day="3">Thứ 4</div>
+        <div class="day-tab" data-day="4">Thứ 5</div>
+        <div class="day-tab" data-day="5">Thứ 6</div>
+        <div class="day-tab" data-day="6">Thứ 7</div>
+      </div>
+
+      <div id="dayContent2"></div>
+    </div>
+
+    <div id="screen-stories" class="screen">
+      <div class="lesson-header">
+        <button class="back-btn" onclick="showScreen('home')">←</button>
+        <div class="lesson-title">Câu chuyện hấp dẫn</div>
+      </div>
+
+      <div class="story-card" onclick="playStory('brownbear')">
+        <div class="story-cover">🐻</div>
+        <div class="story-body">
+          <h3>Brown Bear, Brown Bear</h3>
+          <p>Màu sắc + động vật siêu dễ thương</p>
+        </div>
+      </div>
+
+      <div class="story-card" onclick="playStory('caterpillar')">
+        <div class="story-cover" style="background: linear-gradient(135deg, #A7F3D0, #6EE7B7);">🐛</div>
+        <div class="story-body">
+          <h3>The Very Hungry Caterpillar</h3>
+          <p>Chú sâu đói bụng và trái cây</p>
+        </div>
+      </div>
+
+      <div class="story-card" onclick="playStory('family')">
+        <div class="story-cover" style="background: linear-gradient(135deg, #FBCFE8, #F9A8D4);">👨‍👩‍👧</div>
+        <div class="story-body">
+          <h3>My Family</h3>
+          <p>Giới thiệu gia đình thật vui</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-speak" class="screen">
+      <div class="lesson-header">
+        <button class="back-btn" onclick="showScreen('home')">←</button>
+        <div class="lesson-title">Luyện nói & Phát âm</div>
+      </div>
+
+      <div class="practice-box">
+        <h3>🗣️ Nói theo mình nào!</h3>
+        <p style="font-size:0.85rem; color:#64748B; margin-bottom:12px;">
+          Nhấn vào câu để chọn → Nhấn 🔊 để nghe → Nhấn 🎙️ để nói
+        </p>
+        <div class="phrase-list" id="phraseList"></div>
+        <div class="feedback-box" id="phraseFeedback"></div>
+      </div>
+
+      <div class="record-section">
+        <h3 style="font-weight:800; margin-bottom:8px;">🎤 Kiểm tra phát âm thông minh</h3>
+        <p style="font-size:0.85rem; color:#64748B;">Chọn câu bên trên rồi nhấn nút mic để nói</p>
+
+        <div id="currentTarget" style="font-weight:800; font-size:1.15rem; margin:10px 0; color:var(--primary);">
+          Hello! My name is...
+        </div>
+
+        <div class="record-controls">
+          <button class="record-btn" id="recordBtn" onclick="startSpeechRecognition()" title="Nhận diện phát âm">🎙️</button>
+          <button class="sub-record-btn" id="audioRecBtn" onclick="toggleAudioRecord()" title="Ghi âm giọng bé để nghe lại">⏺️ Ghi âm lại</button>
+        </div>
+
+        <div class="record-status" id="recordStatus">Sẵn sàng nghe bé nói</div>
+
+        <div class="transcript-box" id="transcriptBox">
+          Bé nói: <span id="transcriptText">...</span>
+        </div>
+
+        <div id="scoreArea" style="display:none;">
+          <div class="score-circle" id="scoreCircle">90</div>
+          <div id="scoreMessage" style="font-weight:700; margin-top:6px;"></div>
+        </div>
+
+        <audio id="audioPlayback" controls style="display:none; margin-top:12px; width:100%;"></audio>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%;" onclick="completeSpeakPractice()">
+        ✅ Hoàn thành luyện nói (+3 ⭐)
+      </button>
+    </div>
+
+    <div id="screen-quiz" class="screen">
+      <div class="lesson-header">
+        <button class="back-btn" onclick="showScreen('home')">←</button>
+        <div class="lesson-title">Kiểm tra nghe & phát âm</div>
+      </div>
+
+      <div class="quiz-card" id="quizContainer"></div>
+
+      <button class="btn btn-primary" style="width:100%; margin-top:12px;" id="nextQuizBtn" onclick="nextQuiz()">
+        Câu tiếp theo →
+      </button>
+    </div>
+
+    <div id="screen-rewards" class="screen">
+      <div class="lesson-header">
+        <button class="back-btn" onclick="showScreen('home')">←</button>
+        <div class="lesson-title">Phần thưởng của bé</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="statStars">12</div>
+          <div class="stat-label">Ngôi sao</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statDays">1</div>
+          <div class="stat-label">Ngày học</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statBadges">2</div>
+          <div class="stat-label">Huy hiệu</div>
+        </div>
+      </div>
+
+      <div class="section-title">🏅 Huy hiệu</div>
+      <div class="badge-grid" id="badgeGrid">
+        <div class="badge-item" data-badge="colors">
+          <div class="badge-emoji">🌈</div>
+          <div class="badge-name">Màu sắc</div>
+        </div>
+        <div class="badge-item" data-badge="hello">
+          <div class="badge-emoji">👋</div>
+          <div class="badge-name">Chào hỏi</div>
+        </div>
+        <div class="badge-item locked" data-badge="animals">
+          <div class="badge-emoji">🐾</div>
+          <div class="badge-name">Động vật</div>
+        </div>
+        <div class="badge-item locked" data-badge="family">
+          <div class="badge-emoji">👨‍👩‍👧</div>
+          <div class="badge-name">Gia đình</div>
+        </div>
+        <div class="badge-item locked" data-badge="speaker">
+          <div class="badge-emoji">🎤</div>
+          <div class="badge-name">Siêu sao nói</div>
+        </div>
+        <div class="badge-item locked" data-badge="champion">
+          <div class="badge-emoji">🏆</div>
+          <div class="badge-name">Hoàn thành</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-screen="home" onclick="showScreen('home')">
+        <span class="icon">🏠</span>
+        Trang chủ
+      </button>
+      <button class="nav-item" data-screen="week1" onclick="openWeek(1)">
+        <span class="icon">📚</span>
+        Bài học
+      </button>
+      <button class="nav-item" data-screen="speak" onclick="showScreen('speak')">
+        <span class="icon">🎤</span>
+        Nói
+      </button>
+      <button class="nav-item" data-screen="stories" onclick="showScreen('stories')">
+        <span class="icon">📖</span>
+        Truyện
+      </button>
+      <button class="nav-item" data-screen="rewards" onclick="showScreen('rewards')">
+        <span class="icon">⭐</span>
+        Thưởng
+      </button>
+    </nav>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal-overlay" id="modal">
+      <div class="modal">
+        <div class="modal-emoji" id="modalEmoji">🎉</div>
+        <h2 id="modalTitle">Tuyệt vời!</h2>
+        <p id="modalText">Bé đã hoàn thành bài học!</p>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" id="modalSpeakBtn" style="display:none; width:100%;">🔊 Nghe lại</button>
+          <button class="btn btn-primary" style="width:100%;" onclick="closeModal()">Tiếp tục nào!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const week1Days = {
+      1: {
+        title: "Hello & Chào hỏi",
+        videoId: "dNBC8jQFgHo",
+        videoTitle: "Hello Hello! – Super Simple Songs",
+        phrases: [
+          { en: "Hello!", vi: "Xin chào!" },
+          { en: "Hi!", vi: "Chào!" },
+          { en: "Can you clap your hands?", vi: "Bạn có thể vỗ tay không?" }
+        ],
+        tip: "Vỗ tay theo nhịp và nói to 'Hello!'"
+      },
+      2: {
+        title: "Màu sắc – Colors",
+        videoId: "wceMsYSyNUQ",
+        videoTitle: "The Rainbow Song 🌈",
+        phrases: [
+          { en: "Red", vi: "Màu đỏ" },
+          { en: "Blue", vi: "Màu xanh dương" },
+          { en: "Yellow", vi: "Màu vàng" },
+          { en: "I see a rainbow!", vi: "Mình thấy cầu vồng!" }
+        ],
+        tip: "Chỉ vào màu xung quanh và nói tên màu tiếng Anh"
+      },
+      3: {
+        title: "Số đếm 1–10",
+        videoId: "xNw1SSz18Gg",
+        videoTitle: "How Many Fingers? – Super Simple Songs",
+        phrases: [
+          { en: "One, two, three", vi: "Một, hai, ba" },
+          { en: "Four, five, six", vi: "Bốn, năm, sáu" },
+          { en: "Seven, eight, nine, ten", vi: "Bảy, tám, chín, mười" }
+        ],
+        tip: "Đếm ngón tay vừa nói vừa giơ tay"
+      },
+      4: {
+        title: "Cơ thể – Body Parts",
+        videoId: "ZanHgPprl-0",
+        videoTitle: "Head Shoulders Knees & Toes",
+        phrases: [
+          { en: "Head", vi: "Đầu" },
+          { en: "Shoulders", vi: "Vai" },
+          { en: "Knees", vi: "Đầu gối" },
+          { en: "Toes", vi: "Ngón chân" }
+        ],
+        tip: "Chỉ vào bộ phận cơ thể khi hát"
+      },
+      5: {
+        title: "Tổng hợp vui",
+        videoId: "fN1Cyr0ZK9M",
+        videoTitle: "Hello Hello! (Can you clap?)",
+        phrases: [
+          { en: "Hello, hello!", vi: "Xin chào, xin chào!" },
+          { en: "Clap your hands", vi: "Vỗ tay nào" },
+          { en: "Stamp your feet", vi: "Dậm chân nào" }
+        ],
+        tip: "Hát và làm động tác thật vui"
+      },
+      6: {
+        title: "Ôn tập + Đánh giá",
+        videoId: "dNBC8jQFgHo",
+        videoTitle: "Ôn tập Hello & Colors",
+        phrases: [
+          { en: "Hello! My name is...", vi: "Xin chào! Tên mình là..." },
+          { en: "This is red", vi: "Đây là màu đỏ" },
+          { en: "I like blue", vi: "Mình thích màu xanh" }
+        ],
+        tip: "Hôm nay ghi âm và tự đánh giá nhé!"
+      }
+    };
+
+    const week2Days = {
+      1: {
+        title: "Gia đình – Family",
+        videoId: "PXfRSowknV4",
+        videoTitle: "The Finger Family",
+        phrases: [
+          { en: "This is my mom", vi: "Đây là mẹ mình" },
+          { en: "This is my dad", vi: "Đây là bố mình" },
+          { en: "I love my family", vi: "Mình yêu gia đình" }
+        ],
+        tip: "Chỉ vào từng thành viên gia đình"
+      },
+      2: {
+        title: "Động vật – Animals",
+        videoId: "9FcCV286-gA",
+        videoTitle: "The Animals On The Farm",
+        phrases: [
+          { en: "Dog", vi: "Con chó" },
+          { en: "Cat", vi: "Con mèo" },
+          { en: "The cow says moo", vi: "Con bò kêu moo" }
+        ],
+        tip: "Bắt chước tiếng kêu động vật"
+      },
+      3: {
+        title: "Cảm xúc – Feelings",
+        videoId: "l4dCByK0TN4",
+        videoTitle: "If You're Happy...",
+        phrases: [
+          { en: "I'm happy!", vi: "Mình vui!" },
+          { en: "I'm sad", vi: "Mình buồn" },
+          { en: "Clap your hands", vi: "Vỗ tay nào" }
+        ],
+        tip: "Làm mặt vui / buồn khi nói"
+      },
+      4: {
+        title: "Hội thoại ngắn",
+        videoId: "AA5hOCxlRaI",
+        videoTitle: "Good morning. How are you?",
+        phrases: [
+          { en: "How are you?", vi: "Bạn khỏe không?" },
+          { en: "I'm fine, thank you", vi: "Mình khỏe, cảm ơn" },
+          { en: "Nice to meet you", vi: "Rất vui được gặp bạn" }
+        ],
+        tip: "Tập đóng vai với ba/mẹ"
+      },
+      5: {
+        title: "Peppa Pig ngắn",
+        videoId: "ZKTJhBtImnA",
+        videoTitle: "Peppa Pig – English với phụ đề",
+        phrases: [
+          { en: "I'm Peppa Pig", vi: "Mình là Peppa Pig" },
+          { en: "This is my little brother George", vi: "Đây là em trai George" }
+        ],
+        tip: "Xem và nhắc lại câu yêu thích"
+      },
+      6: {
+        title: "Tổng hợp Tuần 2",
+        videoId: "PXfRSowknV4",
+        videoTitle: "Ôn tập Family & Animals",
+        phrases: [
+          { en: "This is my family", vi: "Đây là gia đình mình" },
+          { en: "I like dogs", vi: "Mình thích chó" },
+          { en: "I'm happy today!", vi: "Hôm nay mình vui!" }
+        ],
+        tip: "Kể lại bằng 4–5 câu ngắn"
+      }
+    };
+
+    const speakPhrases = [
+      { en: "Hello! My name is...", vi: "Xin chào! Tên mình là..." },
+      { en: "I like red and blue", vi: "Mình thích đỏ và xanh" },
+      { en: "This is my head", vi: "Đây là đầu mình" },
+      { en: "How are you?", vi: "Bạn khỏe không?" },
+      { en: "I'm happy today!", vi: "Hôm nay mình vui!" }
+    ];
+
+    const quizQuestions = [
+      {
+        q: "Nghe và chọn từ đúng:",
+        audioText: "Hello",
+        options: ["Hello", "Goodbye", "Thank you"],
+        correct: 0
+      },
+      {
+        q: "Màu của quả táo thường là?",
+        audioText: "Red",
+        options: ["Blue", "Red", "Purple"],
+        correct: 1
+      },
+      {
+        q: "“Head, shoulders, knees and ___”",
+        audioText: "Head, shoulders, knees and toes",
+        options: ["toes", "nose", "eyes"],
+        correct: 0
+      },
+      {
+        q: "Con bò kêu như thế nào?",
+        audioText: "The cow says moo",
+        options: ["Woof", "Moo", "Meow"],
+        correct: 1
+      },
+      {
+        q: "Khi gặp bạn, mình nói gì?",
+        audioText: "Hello!",
+        options: ["Good night", "Hello!", "See you"],
+        correct: 1
+      }
+    ];
+
+    const storiesData = {
+      brownbear: {
+        title: 'Brown Bear',
+        emoji: '🐻',
+        text: 'Brown bear, brown bear, what do you see? I see a red bird looking at me!'
+      },
+      caterpillar: {
+        title: 'Hungry Caterpillar',
+        emoji: '🐛',
+        text: 'On Monday he ate through one apple. But he was still hungry!'
+      },
+      family: {
+        title: 'My Family',
+        emoji: '👨‍👩‍👧',
+        text: 'This is my mom. This is my dad. This is me. I love my family!'
+      }
+    };
+
+    let currentScreen = 'home';
+    let currentWeek = 1;
+    let currentDay = 1;
+    let selectedPhraseIndex = 0;
+    let totalStars = parseInt(localStorage.getItem('funspeak_stars') || '12', 10);
+    let completedLessons = JSON.parse(localStorage.getItem('funspeak_completed') || '[]');
+    let studyDays = JSON.parse(localStorage.getItem('funspeak_days') || '[]');
+    let quizIndex = 0;
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let recognition = null;
+    let isRecognizing = false;
+    let modalSpeechText = '';
+
+    function getTodayKey() {
+      const now = new Date();
+      return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    }
+
+    function trackStudyDay() {
+      const today = getTodayKey();
+      if (!studyDays.includes(today)) {
+        studyDays.push(today);
+        localStorage.setItem('funspeak_days', JSON.stringify(studyDays));
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedName = localStorage.getItem('funspeak_name');
+      if (savedName) {
+        document.getElementById('childName').textContent = savedName;
+      }
+
+      trackStudyDay();
+      updateStarsUI();
+      updateProgressAndBadgesUI();
+      loadDayContent(1, 1);
+      setupDayTabs();
+      loadPhrases();
+      loadQuiz();
+
+      document.getElementById('modalSpeakBtn').addEventListener('click', () => {
+        if (modalSpeechText) speakText(modalSpeechText);
+      });
+    });
+
+    function editChildName() {
+      const current = document.getElementById('childName').textContent;
+      const name = prompt('Tên của bé là gì?', current);
+      if (name && name.trim()) {
+        const clean = name.trim();
+        document.getElementById('childName').textContent = clean;
+        localStorage.setItem('funspeak_name', clean);
+        showToast(`Chào ${clean}! 👋`);
+      }
+    }
+
+    function updateStarsUI() {
+      document.getElementById('totalStars').textContent = totalStars;
+      document.getElementById('statStars').textContent = totalStars;
+      localStorage.setItem('funspeak_stars', String(totalStars));
+    }
+
+    function addStars(n, modalTitle = 'Giỏi quá!', modalMsg = null, speakAfter = null) {
+      totalStars += n;
+      updateStarsUI();
+      updateProgressAndBadgesUI();
+      showToast(`+${n} ngôi sao! 🌟`);
+      showModal('🎉', modalTitle, modalMsg || `Bé vừa nhận được ${n} ngôi sao!`, speakAfter);
+    }
+
+    function updateProgressAndBadgesUI() {
+      const totalLessons = 12;
+      const doneCount = completedLessons.length;
+      const percent = Math.min(100, Math.round((doneCount / totalLessons) * 100));
+
+      document.getElementById('mainProgress').style.width = `${percent}%`;
+      document.getElementById('progressPercent').textContent = `${percent}%`;
+      document.getElementById('completedCountText').textContent = `${doneCount}/${totalLessons} bài`;
+
+      const w1Done = [1, 2, 3, 4, 5, 6].filter(d => completedLessons.includes(`1-${d}`)).length;
+      const w2Done = [1, 2, 3, 4, 5, 6].filter(d => completedLessons.includes(`2-${d}`)).length;
+
+      document.getElementById('weekStars1').textContent = '★'.repeat(w1Done) + '☆'.repeat(6 - w1Done);
+      document.getElementById('weekStars2').textContent = '★'.repeat(w2Done) + '☆'.repeat(6 - w2Done);
+
+      const badge1 = document.getElementById('weekBadge1');
+      if (badge1) {
+        if (w1Done === 6) {
+          badge1.textContent = 'XONG';
+          badge1.className = 'badge-done';
+        } else {
+          badge1.textContent = 'MỚI';
+          badge1.className = 'badge-new';
+        }
+      }
+
+      const unlocked = new Set(['colors', 'hello']);
+      if (completedLessons.includes('2-2') || w2Done >= 2) unlocked.add('animals');
+      if (completedLessons.includes('2-1') || w2Done >= 1) unlocked.add('family');
+      if (totalStars >= 20) unlocked.add('speaker');
+      if (doneCount === totalLessons) unlocked.add('champion');
+
+      let unlockedCount = 0;
+      document.querySelectorAll('#badgeGrid .badge-item').forEach(el => {
+        const key = el.dataset.badge;
+        if (unlocked.has(key)) {
+          el.classList.remove('locked');
+          unlockedCount++;
+        } else {
+          el.classList.add('locked');
+        }
+      });
+
+      document.getElementById('statBadges').textContent = String(unlockedCount);
+      document.getElementById('statDays').textContent = String(Math.max(1, studyDays.length));
+
+      [1, 2].forEach(w => {
+        document.querySelectorAll(`#dayTabs${w} .day-tab`).forEach(tab => {
+          const d = tab.dataset.day;
+          tab.classList.toggle('completed', completedLessons.includes(`${w}-${d}`));
+        });
+      });
+    }
+
+    function showScreen(name) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('screen-' + name);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.screen === name);
+      });
+
+      currentScreen = name;
+      window.scrollTo(0, 0);
+    }
+
+    function openWeek(week) {
+      if (week > 2) {
+        showToast('Tuần 3 & 4 đang được phát triển! 🚧');
+        return;
+      }
+      currentWeek = week;
+      showScreen('week' + week);
+      loadDayContent(week, 1);
+
+      const tabs = document.getElementById('dayTabs' + week);
+      tabs.querySelectorAll('.day-tab').forEach((t, i) => {
+        t.classList.toggle('active', i === 0);
+      });
+      updateProgressAndBadgesUI();
+    }
+
+    function setupDayTabs() {
+      [1, 2].forEach(week => {
+        const tabs = document.getElementById('dayTabs' + week);
+        tabs.querySelectorAll('.day-tab').forEach(tab => {
+          tab.addEventListener('click', () => {
+            tabs.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            const day = parseInt(tab.dataset.day, 10);
+            loadDayContent(week, day);
+          });
+        });
+      });
+    }
+
+    function getSafeOriginParam() {
+      if (window.location.origin && window.location.origin.startsWith('http')) {
+        return `&origin=${encodeURIComponent(window.location.origin)}`;
+      }
+      return '';
+    }
+
+    function loadDayContent(week, day) {
+      currentDay = day;
+      const data = week === 1 ? week1Days[day] : week2Days[day];
+      const container = document.getElementById('dayContent' + week);
+      const isDone = completedLessons.includes(`${week}-${day}`);
+
+      container.innerHTML = `
+        <div class="video-card">
+          <div class="video-wrapper" id="videoBox-${week}-${day}">
+            <iframe
+              id="ytplayer-${week}-${day}"
+              src="https://www.youtube.com/embed/${data.videoId}?rel=0&modestbranding=1&playsinline=1&enablejsapi=1${getSafeOriginParam()}"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+            <div class="video-play-overlay" id="overlay-${week}-${day}" onclick="startVideo(${week}, ${day}, '${data.videoId}')">
+              <div class="play-circle">▶</div>
+            </div>
+          </div>
+          <div class="video-info">
+            <h3>${data.title}</h3>
+            <p>${data.videoTitle}</p>
+            <p style="font-size:0.8rem; color:#94A3B8; margin-top:6px;">▶ Nhấn nút play để xem video ngay trong app</p>
+          </div>
+        </div>
+
+        <div class="practice-box">
+          <h3>🗣️ Câu cần luyện hôm nay</h3>
+          <div class="phrase-list">
+            ${data.phrases.map(p => `
+              <div class="phrase-item" onclick="practicePhraseInSpeak('${p.en.replace(/'/g, "\'")}')">
+                <div>
+                  <div class="phrase-text">${p.en}</div>
+                  <div style="font-size:0.8rem;color:#64748B;">${p.vi}</div>
+                </div>
+                <button class="speak-btn" onclick="event.stopPropagation(); speakText('${p.en.replace(/'/g, "\'")}')">🔊</button>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div style="background:#FEF3C7; border-radius:16px; padding:14px 16px; margin-bottom:16px;">
+          <strong>💡 Mẹo:</strong> ${data.tip}
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn btn-secondary" onclick="showScreen('speak')">🎤 Luyện nói</button>
+          <button class="btn btn-primary" onclick="completeDay(${week}, ${day})">
+            ${isDone ? '✅ Đã hoàn thành (+2⭐)' : '✅ Xong bài (+2⭐)'}
+          </button>
+        </div>
+      `;
+    }
+
+    function startVideo(week, day, videoId) {
+      const overlay = document.getElementById(`overlay-${week}-${day}`);
+      const iframe = document.getElementById(`ytplayer-${week}-${day}`);
+
+      if (overlay) overlay.classList.add('hidden');
+      if (iframe) {
+        iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&playsinline=1&autoplay=1&enablejsapi=1${getSafeOriginParam()}`;
+      }
+
+      showToast('Đang phát video... 🎬');
+    }
+
+    function completeDay(week = currentWeek, day = currentDay) {
+      const key = `${week}-${day}`;
+      const isFirstTime = !completedLessons.includes(key);
+      if (isFirstTime) {
+        completedLessons.push(key);
+        localStorage.setItem('funspeak_completed', JSON.stringify(completedLessons));
+      }
+      addStars(
+        2,
+        isFirstTime ? 'Hoàn thành bài học!' : 'Ôn bài xuất sắc!',
+        isFirstTime
+          ? `Bé đã hoàn thành bài Tuần ${week} - Thứ ${day + 1} và nhận +2 sao!`
+          : `Bé vừa ôn lại bài học và nhận thêm +2 sao!`
+      );
+      loadDayContent(week, day);
+    }
+
+    function loadPhrases() {
+      const list = document.getElementById('phraseList');
+      list.innerHTML = speakPhrases.map((p, idx) => `
+        <div class="phrase-item ${idx === selectedPhraseIndex ? 'selected' : ''}" onclick="selectPhrase(${idx})">
+          <div>
+            <div class="phrase-text">${p.en}</div>
+            <div style="font-size:0.8rem;color:#64748B;">${p.vi}</div>
+          </div>
+          <button class="speak-btn" onclick="event.stopPropagation(); speakText('${p.en.replace(/'/g, "\'")}')">🔊</button>
+        </div>
+      `).join('');
+
+      document.getElementById('currentTarget').textContent = speakPhrases[selectedPhraseIndex].en;
+    }
+
+    function selectPhrase(idx) {
+      selectedPhraseIndex = idx;
+      loadPhrases();
+      speakText(speakPhrases[idx].en);
+    }
+
+    function practicePhraseInSpeak(enText) {
+      const existingIdx = speakPhrases.findIndex(item => item.en.toLowerCase() === enText.toLowerCase());
+      if (existingIdx >= 0) {
+        selectedPhraseIndex = existingIdx;
+        loadPhrases();
+      } else {
+        document.getElementById('currentTarget').textContent = enText;
+      }
+      showScreen('speak');
+      speakText(enText);
+    }
+
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'en-US';
+        utter.rate = 0.85;
+        speechSynthesis.speak(utter);
+      } else {
+        showToast('Trình duyệt không hỗ trợ đọc');
+      }
+    }
+
+    function normalizeWords(str) {
+      return (str || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9\s']/g, ' ')
+        .split(/\s+/)
+        .filter(w => w && w !== 'name' && w !== 'is');
+    }
+
+    function calculatePronunciationScore(target, spoken) {
+      const cleanTarget = target.replace(/\.{3}/g, '').trim();
+      const targetWords = normalizeWords(cleanTarget);
+      const spokenWords = normalizeWords(spoken);
+
+      if (!targetWords.length) return 85;
+      if (!spokenWords.length) return 20;
+
+      let matched = 0;
+      targetWords.forEach(tw => {
+        if (spokenWords.some(sw => sw === tw || sw.startsWith(tw) || tw.startsWith(sw))) {
+          matched++;
+        }
+      });
+
+      const ratio = matched / targetWords.length;
+      if (ratio >= 0.85) return 96;
+      if (ratio >= 0.6) return 84;
+      if (ratio >= 0.35) return 72;
+      return 55;
+    }
+
+    function showPronunciationResult(transcript, targetText) {
+      const box = document.getElementById('transcriptBox');
+      const textEl = document.getElementById('transcriptText');
+      const feedbackEl = document.getElementById('phraseFeedback');
+      const scoreArea = document.getElementById('scoreArea');
+      const scoreCircle = document.getElementById('scoreCircle');
+      const scoreMessage = document.getElementById('scoreMessage');
+
+      box.classList.add('show');
+      textEl.textContent = transcript || '(Không nghe rõ)';
+
+      const score = calculatePronunciationScore(targetText, transcript);
+      scoreArea.style.display = 'block';
+      scoreCircle.textContent = `${score}`;
+
+      feedbackEl.classList.remove('good', 'ok', 'bad');
+      feedbackEl.classList.add('show');
+
+      if (score >= 85) {
+        scoreCircle.style.background = 'linear-gradient(135deg, #34D399, #10B981)';
+        scoreMessage.textContent = 'Phát âm chuẩn như người bản xứ luôn! 🌟';
+        feedbackEl.classList.add('good');
+        feedbackEl.textContent = `🎉 Tuyệt vời! Bé đọc rất rõ câu "${targetText}".`;
+      } else if (score >= 70) {
+        scoreCircle.style.background = 'linear-gradient(135deg, #FBBF24, #F59E0B)';
+        scoreMessage.textContent = 'Khá lắm! Thử đọc chậm và rõ thêm một chút nhé!';
+        feedbackEl.classList.add('ok');
+        feedbackEl.textContent = `👍 Tốt rồi! Nghe lại 🔊 rồi thử nói "${targetText}" thêm lần nữa nhé.`;
+      } else {
+        scoreCircle.style.background = 'linear-gradient(135deg, #F87171, #EF4444)';
+        scoreMessage.textContent = 'Đừng ngại nhé, cùng nghe mẫu và thử lại nào!';
+        feedbackEl.classList.add('bad');
+        feedbackEl.textContent = `💪 Hãy nhấn 🔊 để nghe câu "${targetText}" và nói gần micro hơn nhé.`;
+      }
+    }
+
+    function startSpeechRecognition() {
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const btn = document.getElementById('recordBtn');
+      const status = document.getElementById('recordStatus');
+      const targetText = document.getElementById('currentTarget').textContent.trim();
+
+      if (!SpeechRec) {
+        status.textContent = 'Trình duyệt không hỗ trợ nhận diện giọng nói. Hãy dùng nút "Ghi âm lại" nhé!';
+        showToast('Chuyển sang ghi âm thường');
+        toggleAudioRecord();
+        return;
+      }
+
+      if (isRecognizing && recognition) {
+        recognition.stop();
+        return;
+      }
+
+      recognition = new SpeechRec();
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.onstart = () => {
+        isRecognizing = true;
+        btn.classList.add('listening');
+        btn.textContent = '⏹️';
+        status.textContent = `Đang nghe bé đọc: "${targetText}"...`;
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        showPronunciationResult(transcript, targetText);
+        status.textContent = 'Đã chấm điểm xong! Bé có thể thử lại hoặc sang câu khác.';
+      };
+
+      recognition.onerror = (event) => {
+        let msg = 'Không nhận diện được giọng nói. Bé thử lại nhé!';
+        if (event.error === 'not-allowed') {
+          msg = 'Vui lòng cấp quyền truy cập micro trên trình duyệt!';
+        } else if (event.error === 'no-speech') {
+          msg = 'Chưa nghe thấy bé nói, hãy nhấn mic và nói rõ nhé!';
+        }
+        status.textContent = msg;
+        showToast(msg);
+      };
+
+      recognition.onend = () => {
+        isRecognizing = false;
+        btn.classList.remove('listening');
+        btn.textContent = '🎙️';
+      };
+
+      try {
+        recognition.start();
+      } catch (e) {
+        isRecognizing = false;
+        btn.classList.remove('listening');
+        btn.textContent = '🎙️';
+        status.textContent = 'Không thể bật mic. Hãy kiểm tra quyền micro!';
+      }
+    }
+
+    async function toggleAudioRecord() {
+      const btn = document.getElementById('audioRecBtn');
+      const status = document.getElementById('recordStatus');
+      const playback = document.getElementById('audioPlayback');
+
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+        btn.classList.remove('recording');
+        btn.textContent = '⏺️ Ghi âm lại';
+        status.textContent = 'Đã ghi xong! Nghe lại giọng bé nhé';
+        return;
+      }
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+
+        mediaRecorder.ondataavailable = e => {
+          if (e.data.size > 0) audioChunks.push(e.data);
+        };
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(audioChunks, { type: 'audio/webm' });
+          playback.src = URL.createObjectURL(blob);
+          playback.style.display = 'block';
+          stream.getTracks().forEach(t => t.stop());
+        };
+
+        mediaRecorder.start();
+        btn.classList.add('recording');
+        btn.textContent = '⏹️ Dừng ghi';
+        status.textContent = 'Đang ghi âm giọng bé... Nói to và rõ!';
+      } catch (err) {
+        status.textContent = 'Không thể truy cập micro. Hãy cho phép quyền micro nhé!';
+        showToast('Cần quyền micro');
+      }
+    }
+
+    function completeSpeakPractice() {
+      addStars(3, 'Siêu sao luyện nói!', 'Bé đã hoàn thành phần luyện nói và nhận +3 sao!');
+    }
+
+    function loadQuiz() {
+      const q = quizQuestions[quizIndex];
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = `
+        <div class="quiz-q">
+          <span>Câu ${quizIndex + 1}/${quizQuestions.length}: ${q.q}</span>
+          <button class="speak-btn" onclick="speakText('${q.audioText.replace(/'/g, "\'")}')" title="Nghe gợi ý">🔊</button>
+        </div>
+        <div class="quiz-options">
+          ${q.options.map((opt, i) => `
+            <div class="quiz-opt" onclick="checkAnswer(this, ${i}, ${q.correct})">${opt}</div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function checkAnswer(el, chosen, correct) {
+      const opts = el.parentElement.querySelectorAll('.quiz-opt');
+      opts.forEach(o => o.style.pointerEvents = 'none');
+
+      if (chosen === correct) {
+        el.classList.add('correct');
+        totalStars += 1;
+        updateStarsUI();
+        updateProgressAndBadgesUI();
+        showToast('Đúng rồi! +1 ⭐ 🎉');
+      } else {
+        el.classList.add('wrong');
+        opts[correct].classList.add('correct');
+        showToast('Chưa đúng, thử lại câu tiếp theo nhé!');
+      }
+    }
+
+    function nextQuiz() {
+      quizIndex = (quizIndex + 1) % quizQuestions.length;
+      loadQuiz();
+    }
+
+    function playStory(id) {
+      const s = storiesData[id];
+      if (!s) return;
+      showModal(s.emoji, s.title, s.text, s.text);
+      speakText(s.text);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function showModal(emoji, title, text, speakTextValue = null) {
+      document.getElementById('modalEmoji').textContent = emoji;
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalText').textContent = text;
+      const speakBtn = document.getElementById('modalSpeakBtn');
+      modalSpeechText = speakTextValue || '';
+      speakBtn.style.display = modalSpeechText ? 'flex' : 'none';
+      document.getElementById('modal').classList.add('show');
+    }
+
+    function closeModal() {
+      if ('speechSynthesis' in window) speechSynthesis.cancel();
+      document.getElementById('modal').classList.remove('show');
+    }
+  </script>
+</body>
+</html>
